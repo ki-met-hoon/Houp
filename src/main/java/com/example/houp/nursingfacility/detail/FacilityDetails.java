@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-@Setter
 @Entity
 public class FacilityDetails {
     @Id
