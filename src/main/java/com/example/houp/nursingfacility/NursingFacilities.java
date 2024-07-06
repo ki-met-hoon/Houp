@@ -9,7 +9,7 @@ import lombok.Getter;
 public class NursingFacilities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nursingFacilityId;
+    private Long id;
 
     @Column(length = 128)
     @NotNull

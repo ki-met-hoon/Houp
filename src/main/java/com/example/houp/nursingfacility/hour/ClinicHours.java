@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class ClinicHours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clinicHourId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn
