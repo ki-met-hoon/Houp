@@ -3,7 +3,6 @@ package com.example.houp.nursingfacility.detail;
 import com.example.houp.nursingfacility.NursingFacilities;
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Entity
@@ -25,6 +24,6 @@ public class FacilityDetails {
     @Column(length = 8)
     private String closedOnSunday;
 
-    @Column(length = 8)
-    private String closedOnHoliday;
+    @Column(length = 128)
+    private String memo;
 }
