@@ -15,9 +15,9 @@ public class NursingFacilities {
     @NotNull
     private String encryptedCode;
 
-    @Column(length = 64)
+    @Column(length = 64, name = "facility_name")
     @NotNull
-    private String facilityName;
+    private String name;
 
     private int typeCode;
 

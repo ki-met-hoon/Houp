@@ -3,7 +3,6 @@ package com.example.houp.nursingfacility.detail;
 import com.example.houp.nursingfacility.NursingFacilities;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter

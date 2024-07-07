@@ -16,9 +16,10 @@ public class ClinicDepartments {
     @JoinColumn
     private NursingFacilities nursingFacilities;
 
-    @Column(length = 8)
+    @Column(length = 8, name = "department_code")
     @NotNull
-    private String departmentCodeName;
+    private String codeName;
 
-    private int departmentCode;
+    @Column(name = "department_code_name")
+    private int code;
 }

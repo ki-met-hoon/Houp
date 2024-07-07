@@ -16,9 +16,9 @@ public class Supplements {
     @JoinColumn
     private UserInfos userInfos;
 
-    @Column(length = 8)
+    @Column(length = 8, name = "supplement_name")
     @NotNull
-    private String supplementName;
+    private String name;
 
     @Column(length = 128)
     @NotNull
