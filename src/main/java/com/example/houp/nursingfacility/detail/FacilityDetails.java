@@ -17,7 +17,6 @@ public class FacilityDetails {
     private NursingFacilities nursingFacilities;
 
     @Column(length = 8)
-    @NotNull
     private String parkingAvailable;
 
     @Column(length = 16)
