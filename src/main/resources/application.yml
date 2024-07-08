@@ -19,3 +19,9 @@ spring:
       hibernate:
         format_sql: true
   h2.console.enabled: true
+
+logging:
+  level:
+    com.example.houp: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql: trace
