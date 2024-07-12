@@ -15,9 +15,24 @@ public class UserInfos {
     @NotNull
     private String ageGroup;
 
-    private int age;
+    @Column(length = 8)
+    @NotNull
+    private String job;
 
     @Column(length = 4)
     @NotNull
     private String gender;
+
+    protected UserInfos() {
+    }
+
+    private UserInfos(@NotNull String ageGroup, @NotNull String job, @NotNull String gender) {
+        this.ageGroup = ageGroup;
+        this.job = job;
+        this.gender = gender;
+    }
+
+    public static UserInfos of(String ageGroup, String job, String gender) {
+        return new UserInfos(ageGroup, job, gender);
+    }
 }

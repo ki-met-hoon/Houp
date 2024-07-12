@@ -23,4 +23,18 @@ public class ClinicHours {
     private int startTime;
 
     private int endTime;
+
+    protected ClinicHours() {
+    }
+
+    private ClinicHours(NursingFacilities nursingFacilities, @NotNull String dayOfWeek, int startTime, int endTime) {
+        this.nursingFacilities = nursingFacilities;
+        this.dayOfWeek = dayOfWeek;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public static ClinicHours of(NursingFacilities nursingFacilities, @NotNull String dayOfWeek, int startTime, int endTime) {
+        return new ClinicHours(nursingFacilities, dayOfWeek, startTime, endTime);
+    }
 }

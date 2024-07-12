@@ -22,4 +22,17 @@ public class ClinicDepartments {
 
     @Column(name = "department_code_name")
     private int code;
+
+    protected ClinicDepartments() {
+    }
+
+    private ClinicDepartments(NursingFacilities nursingFacilities, @NotNull String codeName, int code) {
+        this.nursingFacilities = nursingFacilities;
+        this.codeName = codeName;
+        this.code = code;
+    }
+
+    public static ClinicDepartments of(NursingFacilities nursingFacilities, @NotNull String codeName, int code) {
+        return new ClinicDepartments(nursingFacilities, codeName, code);
+    }
 }

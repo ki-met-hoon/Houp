@@ -1,8 +1,8 @@
 package com.example.houp.nursingfacility;
 
 import jakarta.persistence.*;
-import org.jetbrains.annotations.NotNull;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Entity
@@ -39,22 +39,48 @@ public class NursingFacilities {
 
     private double coordinateY;
 
-    @Column(length = 8)
+    @Column(length = 256)
     @NotNull
-    private String city;
+    private String address;
 
-    @Column(length = 8)
-    @NotNull
-    private String district;
+//    @Column(length = 8)
+//    @NotNull
+//    private String city;
+//
+//    @Column(length = 8)
+//    @NotNull
+//    private String district;
+//
+//    @Column(length = 16)
+//    @NotNull
+//    private String street;
+//
+//    @Column(length = 8)
+//    @NotNull
+//    private String buildingNumber;
+//
+//    @Column(length = 64)
+//    private String detailAddress;
 
-    @Column(length = 16)
-    @NotNull
-    private String street;
+    protected NursingFacilities() {
+    }
 
-    @Column(length = 8)
-    @NotNull
-    private String buildingNumber;
+    private NursingFacilities(@NotNull String encryptedCode, @NotNull String name, int typeCode, @NotNull String typeCodeName, int cityCode,
+                              @NotNull String cityCodeName, @NotNull String phoneNumber, double coordinateX, double coordinateY, @NotNull String address) {
+        this.encryptedCode = encryptedCode;
+        this.name = name;
+        this.typeCode = typeCode;
+        this.typeCodeName = typeCodeName;
+        this.cityCode = cityCode;
+        this.cityCodeName = cityCodeName;
+        this.phoneNumber = phoneNumber;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
+        this.address = address;
+    }
 
-    @Column(length = 32)
-    private String detailAddress;
+    public static NursingFacilities of(String encryptedCode, String name, int typeCode, String typeCodeName, int cityCode, String cityCodeName, String phoneNumber,
+                                       double coordinateX, double coordinateY, String address) {
+        return new NursingFacilities(encryptedCode, name, typeCode, typeCodeName, cityCode, cityCodeName, phoneNumber, coordinateX, coordinateY, address);
+    }
 }

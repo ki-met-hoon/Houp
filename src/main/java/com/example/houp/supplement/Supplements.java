@@ -16,11 +16,29 @@ public class Supplements {
     @JoinColumn
     private UserInfos userInfos;
 
-    @Column(length = 8, name = "supplement_name")
+    @Column(length = 24, name = "supplement_name")
     @NotNull
     private String name;
 
-    @Column(length = 128)
+    @Column(length = 512)
     @NotNull
     private String efficacy;
+
+    @Column(length = 512)
+    @NotNull
+    private String reason;
+
+    protected Supplements() {
+    }
+
+    private Supplements(UserInfos userInfos, @NotNull String name, @NotNull String efficacy, @NotNull String reason) {
+        this.userInfos = userInfos;
+        this.name = name;
+        this.efficacy = efficacy;
+        this.reason = reason;
+    }
+
+    public static Supplements of(UserInfos userInfos, String name, String efficacy, String reason) {
+        return new Supplements(userInfos, name, efficacy, reason);
+    }
 }
