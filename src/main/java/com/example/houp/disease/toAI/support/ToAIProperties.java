@@ -1,9 +1,9 @@
-package com.example.houp.disease.toAI;
+package com.example.houp.disease.toAI.support;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "feign.client.toAI")
-public record toAIProperties(
+public record ToAIProperties(
         String name,
         String baseUrl,
         String diseaseUrl
