@@ -1,8 +1,8 @@
-package com.example.houp.disease.toAI.service;
+package com.example.houp.disease.toai.service;
 
-import com.example.houp.disease.toAI.support.ToAIApiCaller;
-import com.example.houp.disease.toAI.dto.PredictionResponse;
-import com.example.houp.disease.toAI.dto.UserInfoRequest;
+import com.example.houp.disease.toai.support.ToAIApiCaller;
+import com.example.houp.disease.toai.dto.PredictionResponse;
+import com.example.houp.disease.toai.dto.UserInfoRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

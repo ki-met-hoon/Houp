@@ -1,4 +1,4 @@
-package com.example.houp.disease.toAI.dto;
+package com.example.houp.disease.toai.dto;
 
 import java.util.List;
 import java.util.Map;

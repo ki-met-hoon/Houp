@@ -1,7 +1,7 @@
-package com.example.houp.disease.toAI.support;
+package com.example.houp.disease.toai.support;
 
-import com.example.houp.disease.toAI.dto.PredictionResponse;
-import com.example.houp.disease.toAI.dto.UserInfoRequest;
+import com.example.houp.disease.toai.dto.PredictionResponse;
+import com.example.houp.disease.toai.dto.UserInfoRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

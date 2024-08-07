@@ -1,4 +1,4 @@
-package com.example.houp.disease.toAI.dto;
+package com.example.houp.disease.toai.dto;
 
 public record UserInfoRequest(
         String name,

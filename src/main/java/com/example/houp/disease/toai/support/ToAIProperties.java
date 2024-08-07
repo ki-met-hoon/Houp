@@ -1,4 +1,4 @@
-package com.example.houp.disease.toAI.support;
+package com.example.houp.disease.toai.support;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
