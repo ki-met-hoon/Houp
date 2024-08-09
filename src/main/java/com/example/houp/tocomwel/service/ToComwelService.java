@@ -11,9 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -43,18 +43,16 @@ public class ToComwelService {
     }
 
     private List<ReportToObject.Item> collectReportsFromStrategies(List<ReportStrategy> strategies) {
-        List<ReportToObject.Item> items = new ArrayList<>();
-        int remainingCount = MAX_REPORTS;
+        AtomicInteger remainingCount = new AtomicInteger(MAX_REPORTS);
 
-        for (ReportStrategy strategy : strategies) {
-            if (remainingCount <= 0) break;
-
-            StrategyResult result = executeStrategy(strategy, remainingCount);
-            items.addAll(result.items());
-            remainingCount = result.remainingCount();
-        }
-
-        return items;
+        return strategies.stream()
+                .takeWhile(strategy -> remainingCount.get() > 0)
+                .flatMap(strategy -> {
+                    StrategyResult result = executeStrategy(strategy, remainingCount.get());
+                    remainingCount.set(result.remainingCount());
+                    return result.items().stream();
+                })
+                .toList();
     }
 
     private List<ReportStrategy> getReportStrategies(String diseaseName, String jobKind, String diseaseKind) {
