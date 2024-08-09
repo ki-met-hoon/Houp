@@ -1,4 +1,4 @@
-package com.example.houp.disease.toai.dto;
+package com.example.houp.toclient.dto;
 
 import java.util.List;
 import java.util.Map;
@@ -21,12 +21,13 @@ public record PredictionResponse(
     ) {}
 
     public record Rankings(
-            List<Place> places
+            Place place1,
+            Place place2,
+            Place place3
     ) {
         public record Place(
                 String name,
-                int patients,
-                int rank
+                int patients
         ) {}
     }
 
