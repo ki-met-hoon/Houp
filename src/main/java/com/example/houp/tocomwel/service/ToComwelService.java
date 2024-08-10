@@ -39,7 +39,7 @@ public class ToComwelService {
         List<ReportStrategy> strategies = getReportStrategies(diseaseName, jobKind, diseaseKind);
         List<ReportToObject.Item> CollectReports = collectReportsFromStrategies(strategies);
 
-        return createCaseExamples(CollectReports);
+        return createCaseExamples(jobKind, diseaseKind, CollectReports);
     }
 
     private List<ReportToObject.Item> collectReportsFromStrategies(List<ReportStrategy> strategies) {
@@ -77,8 +77,9 @@ public class ToComwelService {
         return strategy.getReports(toComwelCaller, serviceKey, PAGENO, String.valueOf(count));
     }
 
-    private CaseExamples createCaseExamples(List<ReportToObject.Item> items) {
-        return new CaseExamples(items.stream()
+    private CaseExamples createCaseExamples(String jobKind, String diseaseKind, List<ReportToObject.Item> items) {
+        return new CaseExamples(jobKind, diseaseKind,
+                items.stream()
                 .distinct()
                 .map(item -> new CaseExamples.CaseExample(item.getKinda(), item.getNoncontent()))
                 .limit(MAX_REPORTS)
