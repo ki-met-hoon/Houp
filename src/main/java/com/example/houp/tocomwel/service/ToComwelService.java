@@ -22,7 +22,7 @@ public class ToComwelService {
 
     private static final String PAGENO = "1";
 
-    private static final int MAX_REPORTS = 25;
+    private static final int MAX_REPORTS = 50;
 
     @Value("${feign.client.toComwel.service-key}")
     private String serviceKey;
