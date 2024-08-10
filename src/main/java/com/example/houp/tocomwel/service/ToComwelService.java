@@ -22,7 +22,7 @@ public class ToComwelService {
 
     private static final String PAGENO = "1";
 
-    private static final int MAX_REPORTS = 25;
+    private static final int MAX_REPORTS = 50;
 
     @Value("${feign.client.toComwel.service-key}")
     private String serviceKey;
@@ -39,7 +39,7 @@ public class ToComwelService {
         List<ReportStrategy> strategies = getReportStrategies(diseaseName, jobKind, diseaseKind);
         List<ReportToObject.Item> CollectReports = collectReportsFromStrategies(strategies);
 
-        return createCaseExamples(jobKind, diseaseKind, CollectReports);
+        return createCaseExamples(diseaseName, jobKind, diseaseKind, CollectReports);
     }
 
     private List<ReportToObject.Item> collectReportsFromStrategies(List<ReportStrategy> strategies) {
@@ -77,12 +77,12 @@ public class ToComwelService {
         return strategy.getReports(toComwelCaller, serviceKey, PAGENO, String.valueOf(count));
     }
 
-    private CaseExamples createCaseExamples(String jobKind, String diseaseKind, List<ReportToObject.Item> items) {
-        return new CaseExamples(jobKind, diseaseKind,
+    private CaseExamples createCaseExamples(String diseaseName, String jobKind, String diseaseKind, List<ReportToObject.Item> items) {
+        return new CaseExamples(diseaseName, jobKind, diseaseKind,
                 items.stream()
-                .distinct()
-                .map(item -> new CaseExamples.CaseExample(item.getKinda(), item.getNoncontent()))
-                .limit(MAX_REPORTS)
-                .toList());
+                        .distinct()
+                        .map(item -> new CaseExamples.CaseExample(item.getKinda(), item.getNoncontent()))
+                        .limit(MAX_REPORTS)
+                        .toList());
     }
 }
