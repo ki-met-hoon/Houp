@@ -1,8 +1,9 @@
 package com.example.houp.tocomwel.service;
 
 import com.example.houp.support.ToComwelCaller;
+import com.example.houp.support.util.KindValidator;
 import com.example.houp.toai.dto.CaseExamples;
-import com.example.houp.tocomwel.dto.Decoded;
+import com.example.houp.toclient.dto.UserDiseaseInfoRequest;
 import com.example.houp.tocomwel.dto.ReportToObject;
 import com.example.houp.tocomwel.dto.StrategyResult;
 import com.example.houp.tocomwel.support.*;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -22,24 +25,29 @@ public class ToComwelService {
 
     private static final String PAGENO = "1";
 
-    private static final int MAX_REPORTS = 50;
+    private static final int MAX_REPORTS = 20;
 
     @Value("${feign.client.toComwel.service-key}")
     private String serviceKey;
 
     private final ToComwelCaller toComwelCaller;
 
-    public CaseExamples getDiseaseDisagnosisReport(String diseaseName, String jobKind, String diseaseKind) {
-        Decoded decoded = Decoded.of(diseaseName, jobKind, diseaseKind);
+    public CaseExamples getDiseaseDisagnosisReport(UserDiseaseInfoRequest userDiseaseInfoRequest) {
+//        Decoded decoded = Decoded.of(diseaseName, jobKind, diseaseKind);
+        validate(userDiseaseInfoRequest.jobKind(), userDiseaseInfoRequest.diseaseKind());
 
-        return getDiseaseReportsCascade(decoded.diseaseName(), decoded.jobKind(), decoded.diseaseKind());
+        List<ReportToObject.Item> collectReports = getDiseaseReportsCascade(userDiseaseInfoRequest.diseaseName(), userDiseaseInfoRequest.jobKind(), userDiseaseInfoRequest.diseaseKind());
+        return createCaseExamples(userDiseaseInfoRequest.diseaseName(), userDiseaseInfoRequest.jobKind(), userDiseaseInfoRequest.diseaseKind(), userDiseaseInfoRequest.painDescription(), collectReports);
     }
 
-    private CaseExamples getDiseaseReportsCascade(String diseaseName, String jobKind, String diseaseKind) {
-        List<ReportStrategy> strategies = getReportStrategies(diseaseName, jobKind, diseaseKind);
-        List<ReportToObject.Item> CollectReports = collectReportsFromStrategies(strategies);
+    private static void validate(String decodedJobKind, String decodedDiseaseKind) {
+        KindValidator.isValidJobKind(decodedJobKind);
+        KindValidator.isValidDiseaseKind(decodedDiseaseKind);
+    }
 
-        return createCaseExamples(diseaseName, jobKind, diseaseKind, CollectReports);
+    private List<ReportToObject.Item> getDiseaseReportsCascade(String diseaseName, String jobKind, String diseaseKind) {
+        List<ReportStrategy> strategies = getReportStrategies(diseaseName, jobKind, diseaseKind);
+        return collectReportsFromStrategies(strategies);
     }
 
     private List<ReportToObject.Item> collectReportsFromStrategies(List<ReportStrategy> strategies) {
@@ -50,7 +58,9 @@ public class ToComwelService {
                 .flatMap(strategy -> {
                     StrategyResult result = executeStrategy(strategy, remainingCount.get());
                     remainingCount.set(result.remainingCount());
-                    return result.items().stream();
+                    return Optional.ofNullable(result.items())
+                            .stream()
+                            .flatMap(Collection::stream);
                 })
                 .toList();
     }
@@ -77,11 +87,13 @@ public class ToComwelService {
         return strategy.getReports(toComwelCaller, serviceKey, PAGENO, String.valueOf(count));
     }
 
-    private CaseExamples createCaseExamples(String diseaseName, String jobKind, String diseaseKind, List<ReportToObject.Item> items) {
-        return new CaseExamples(diseaseName, jobKind, diseaseKind,
+    private CaseExamples createCaseExamples(String diseaseName, String jobKind, String diseaseKind, String painDescription, List<ReportToObject.Item> items) {
+        AtomicInteger index = new AtomicInteger(0);
+
+        return new CaseExamples(diseaseName, jobKind, diseaseKind, painDescription,
                 items.stream()
                         .distinct()
-                        .map(item -> new CaseExamples.CaseExample(item.getKinda(), item.getNoncontent()))
+                        .map(item -> new CaseExamples.CaseExample(index.getAndIncrement(), item.getKinda(), item.getNoncontent()))
                         .limit(MAX_REPORTS)
                         .toList());
     }

@@ -1,6 +1,6 @@
 package com.example.houp.toclient.dto;
 
-public record JudgementDocumentResponse(
+public record ReportToClient(
         double approvalProbability,
         String result,
         CaseExamples caseExamples
@@ -11,7 +11,8 @@ public record JudgementDocumentResponse(
     ) {}
 
     public record Case(
-            int id,
-            String summary
+            String reviewResult,
+            String summary,
+            String judgmentDocument
     ) {}
 }

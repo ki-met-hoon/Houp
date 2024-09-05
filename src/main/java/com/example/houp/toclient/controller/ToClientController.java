@@ -1,8 +1,9 @@
 package com.example.houp.toclient.controller;
 
 import com.example.houp.toai.dto.CaseExamples;
-import com.example.houp.toclient.dto.JudgementDocumentResponse;
 import com.example.houp.toclient.dto.PredictionResponse;
+import com.example.houp.toclient.dto.ReportToClient;
+import com.example.houp.toclient.dto.UserDiseaseInfoRequest;
 import com.example.houp.toclient.dto.UserInfoRequest;
 import com.example.houp.toclient.service.ToClientService;
 import com.example.houp.tocomwel.service.ToComwelService;
@@ -22,9 +23,9 @@ public class ToClientController {
         return ResponseEntity.ok(toClientService.getPredictedDiseaseInfo(userInfoRequest));
     }
 
-    @GetMapping("/worker-compensation-infos")
-    public ResponseEntity<JudgementDocumentResponse> handleDiseaseInfo(@RequestParam("diseaseName") String diseaseName, @RequestParam("jobKind") String jobKind, @RequestParam("diseaseKind") String diseaseKind) {
-        CaseExamples relatedDiseaseJudgments = toComwelService.getDiseaseDisagnosisReport(diseaseName, jobKind, diseaseKind);
+    @PostMapping("/worker-compensation-infos")
+    public ResponseEntity<ReportToClient> handleDiseaseInfo(@Valid @RequestBody UserDiseaseInfoRequest userDiseaseInfoRequest) {
+        CaseExamples relatedDiseaseJudgments = toComwelService.getDiseaseDisagnosisReport(userDiseaseInfoRequest);
         return ResponseEntity.ok(toClientService.getPredictedDisagnosisReport(relatedDiseaseJudgments));
     }
 }
