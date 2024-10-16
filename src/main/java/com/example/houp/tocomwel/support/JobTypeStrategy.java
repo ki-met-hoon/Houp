@@ -1,6 +1,5 @@
 package com.example.houp.tocomwel.support;
 
-import com.example.houp.support.ToComwelCaller;
 import com.example.houp.tocomwel.dto.ReportToObject;
 
 public class JobTypeStrategy implements ReportStrategy {

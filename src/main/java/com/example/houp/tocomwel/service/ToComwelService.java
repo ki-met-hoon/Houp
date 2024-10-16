@@ -1,6 +1,5 @@
 package com.example.houp.tocomwel.service;
 
-import com.example.houp.support.ToComwelCaller;
 import com.example.houp.support.util.KindValidator;
 import com.example.houp.toai.dto.CaseExamples;
 import com.example.houp.toclient.dto.UserDiseaseInfoRequest;

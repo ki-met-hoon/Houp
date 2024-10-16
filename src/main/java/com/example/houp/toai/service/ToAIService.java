@@ -1,7 +1,5 @@
 package com.example.houp.toai.service;
 
-import com.example.houp.support.ToAIDiseaseInfoCaller;
-import com.example.houp.support.ToAIReportCaller;
 import com.example.houp.toai.dto.CaseExamples;
 import com.example.houp.toclient.dto.JudgementDocumentResponse;
 import com.example.houp.toclient.dto.PredictionResponse;
