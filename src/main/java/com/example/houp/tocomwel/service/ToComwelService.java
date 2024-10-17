@@ -32,7 +32,6 @@ public class ToComwelService {
     private final ToComwelCaller toComwelCaller;
 
     public CaseExamples getDiseaseDisagnosisReport(UserDiseaseInfoRequest userDiseaseInfoRequest) {
-//        Decoded decoded = Decoded.of(diseaseName, jobKind, diseaseKind);
         validate(userDiseaseInfoRequest.jobKind(), userDiseaseInfoRequest.diseaseKind());
 
         List<ReportToObject.Item> collectReports = getDiseaseReportsCascade(userDiseaseInfoRequest.diseaseName(), userDiseaseInfoRequest.jobKind(), userDiseaseInfoRequest.diseaseKind());
