@@ -1,8 +1,5 @@
 package com.example.houp.support.util;
 
-import com.example.houp.support.util.exception.DiseaseKindException;
-import com.example.houp.support.util.exception.JobKindException;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -279,15 +276,11 @@ public class KindValidator {
             "화물차주(수출입컨테이너운송)"
     ));
 
-    public static void isValidDiseaseKind(String decodedDiseaseKind) {
-        if (!VALID_DISEASE_KINDS.contains(decodedDiseaseKind)) {
-            throw new DiseaseKindException();
-        }
+    public static boolean isValidDiseaseKind(String decodedDiseaseKind) {
+        return VALID_DISEASE_KINDS.contains(decodedDiseaseKind);
     }
 
-    public static void isValidJobKind(String decodedJobKind) {
-        if (!VALID_JOB_KINDS.contains(decodedJobKind)) {
-            throw new JobKindException();
-        }
+    public static boolean isValidJobKind(String decodedJobKind) {
+        return VALID_JOB_KINDS.contains(decodedJobKind);
     }
 }
