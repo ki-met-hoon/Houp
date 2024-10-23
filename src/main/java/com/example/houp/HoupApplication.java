@@ -2,10 +2,10 @@ package com.example.houp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
-@EnableConfigurationProperties
 @SpringBootApplication
+@ConfigurationPropertiesScan("com.example.houp.support.properties")
 public class HoupApplication {
 
     public static void main(String[] args) {
