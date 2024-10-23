@@ -1,12 +1,14 @@
 package com.example.houp.toclient.service;
 
-import com.example.houp.toai.dto.CaseExamples;
-import com.example.houp.toclient.dto.JudgementDocumentResponse;
+import com.example.houp.support.properties.toai.ToAiProperties;
 import com.example.houp.toclient.dto.PredictionResponse;
-import com.example.houp.toclient.dto.ReportToClient;
 import com.example.houp.toclient.dto.UserInfoRequest;
+import com.example.houp.toclient.support.exception.DiseaseResponseByAiException;
+import com.example.houp.toclient.support.exception.DiseaseResponseBySeverException;
+import com.example.houp.toclient.support.exception.UserInfoRequestException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -15,18 +17,22 @@ import reactor.core.publisher.Mono;
 @Service
 public class ToClientService {
 
-    @Value("${toAI.base-url}")
-    private String toAiBaseUrl;
-
-    @Value("${toAI.disease.url}")
-    private String toAiDiseaseUrl;
+    private final ToAiProperties toAiProperties;
+    private final WebClient diseaseWebClient;
 
     public Mono<PredictionResponse> getPredictedDiseaseInfo(UserInfoRequest userInfoRequest) {
-        return WebClient.create(toAiBaseUrl)
+        return diseaseWebClient
                 .post()
-                .uri(toAiDiseaseUrl)
+                .uri(toAiProperties.disease().url())
                 .bodyValue(userInfoRequest)
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, response -> {
+                    if (response.statusCode().equals(HttpStatus.BAD_REQUEST))
+                        return Mono.error(new UserInfoRequestException());
+                    else
+                        return Mono.error(new DiseaseResponseBySeverException());
+                })
+                .onStatus(HttpStatusCode::is5xxServerError, response -> Mono.error(new DiseaseResponseByAiException()))
                 .bodyToMono(PredictionResponse.class);
     }
 
