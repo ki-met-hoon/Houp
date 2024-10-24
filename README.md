@@ -126,11 +126,8 @@ https://youtu.be/f80cOfu-WbQ
       │           │  │  ├─ ReportFeignConfig.java
       │           │  │  └─ WebMvcConfig.java
       │           │  ├─ exception
-      │           │  │  ├─ FeignBadRequestException.java
-      │           │  │  ├─ FeignNotFoundException.java
+      │           │  │  ├─ XmlParseToComwelException.java
       │           │  │  ├─ JsonParseToAiException.java
-      │           │  │  ├─ RetreiveMessageErrorDecoder.java
-      │           │  │  └─ XmlParseToComwelException.java
       │           │  └─ util
       │           │     ├─ KindValidator.java
       │           │     ├─ UrlUtility.java
