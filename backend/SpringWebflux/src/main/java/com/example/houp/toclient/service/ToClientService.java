@@ -5,6 +5,7 @@ import com.example.houp.toclient.dto.PredictionResponse;
 import com.example.houp.toclient.dto.UserInfoRequest;
 import com.example.houp.toclient.support.exception.DiseaseResponseByAiException;
 import com.example.houp.toclient.support.exception.DiseaseResponseBySeverException;
+import com.example.houp.toclient.support.exception.PredictionResponseParsingException;
 import com.example.houp.toclient.support.exception.UserInfoRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,8 @@ public class ToClientService {
                         return Mono.error(new DiseaseResponseBySeverException());
                 })
                 .onStatus(HttpStatusCode::is5xxServerError, response -> Mono.error(new DiseaseResponseByAiException()))
-                .bodyToMono(PredictionResponse.class);
+                .bodyToMono(PredictionResponse.class)
+                .onErrorResume(error -> Mono.error(new PredictionResponseParsingException()));
     }
 
 //    public ReportToClient getPredictedDisagnosisReport(CaseExamples caseExamples) {
