@@ -14,6 +14,7 @@ public class ToClientRouter {
     public RouterFunction<ServerResponse> routeToClient(ToClientHandler handler) {
         return route()
                 .POST("/disease-predictions", handler::handleUserInfo)
+                .POST("/worker-compensation-infos", handler::handleDiseaseInfo)
                 .build();
     }
 }
