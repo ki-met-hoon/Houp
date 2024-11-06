@@ -1,9 +1,10 @@
 package com.example.houp.tocomwel.dto;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,68 +12,68 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@JacksonXmlRootElement(localName = "response")
+@XmlRootElement(name = "response")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ReportToObject {
 
-    @JacksonXmlProperty(localName = "header")
+    @XmlElement(name = "header")
     private Header header;
 
-    @JacksonXmlProperty(localName = "body")
+    @XmlElement(name = "body")
     private Body body;
 
     @Getter
     @NoArgsConstructor
     public static class Header {
-        @JacksonXmlProperty(localName = "resultCode")
+        @XmlElement(name = "resultCode")
         private String resultCode;
 
-        @JacksonXmlProperty(localName = "resultMsg")
+        @XmlElement(name = "resultMsg")
         private String resultMsg;
     }
 
     @Getter
     @NoArgsConstructor
     public static class Body {
-        @JacksonXmlProperty(localName = "items")
+        @XmlElement(name = "items")
         private Items items;
 
-        @JacksonXmlProperty(localName = "numOfRows")
+        @XmlElement(name = "numOfRows")
         private String numOfRows;
 
-        @JacksonXmlProperty(localName = "pageNo")
+        @XmlElement(name = "pageNo")
         private String pageNo;
 
-        @JacksonXmlProperty(localName = "totalCount")
+        @XmlElement(name = "totalCount")
         private String totalCount;
     }
 
     @Getter
     @NoArgsConstructor
     public static class Items {
-        @JacksonXmlElementWrapper(useWrapping = false)
-        @JacksonXmlProperty(localName = "item")
+        @XmlElement(name = "item")
         private List<Item> item;
     }
 
     @Getter
     @NoArgsConstructor
     public static class Item {
-        @JacksonXmlProperty(localName = "accnum")
+        @XmlElement(name = "accnum")
         private String accnum;
 
-        @JacksonXmlProperty(localName = "kinda")
+        @XmlElement(name = "kinda")
         private String kinda;
 
-        @JacksonXmlProperty(localName = "kindb")
+        @XmlElement(name = "kindb")
         private String kindb;
 
-        @JacksonXmlProperty(localName = "kindc")
+        @XmlElement(name = "kindc")
         private String kindc;
 
-        @JacksonXmlProperty(localName = "title")
+        @XmlElement(name = "title")
         private String title;
 
-        @JacksonXmlProperty(localName = "noncontent")
+        @XmlElement(name = "noncontent")
         @JacksonXmlCData
         private String noncontent;
     }
