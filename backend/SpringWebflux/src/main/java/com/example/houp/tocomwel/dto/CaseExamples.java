@@ -1,4 +1,4 @@
-package com.example.houp.toai.dto;
+package com.example.houp.tocomwel.dto;
 
 import java.util.List;
 

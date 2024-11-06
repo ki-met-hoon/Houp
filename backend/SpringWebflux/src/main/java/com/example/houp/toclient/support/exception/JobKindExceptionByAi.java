@@ -1,4 +1,4 @@
-package com.example.houp.toai.support.exception;
+package com.example.houp.toclient.support.exception;
 
 public class JobKindExceptionByAi extends RuntimeException {
 
