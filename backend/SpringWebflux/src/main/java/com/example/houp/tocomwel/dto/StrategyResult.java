@@ -4,7 +4,7 @@ import java.util.List;
 
 public record StrategyResult(
         List<ReportToObject.Item> items,
-        int remainingCount
+        int count
 ) {
 
     public static StrategyResult of(List<ReportToObject.Item> items, int remainingCount) {
