@@ -276,11 +276,11 @@ public class KindValidator {
             "화물차주(수출입컨테이너운송)"
     ));
 
-    public static boolean isValidDiseaseKind(String decodedDiseaseKind) {
-        return VALID_DISEASE_KINDS.contains(decodedDiseaseKind);
+    public static boolean isValidDiseaseKind(String diseaseKind) {
+        return VALID_DISEASE_KINDS.contains(diseaseKind);
     }
 
-    public static boolean isValidJobKind(String decodedJobKind) {
-        return VALID_JOB_KINDS.contains(decodedJobKind);
+    public static boolean isValidJobKind(String jobKind) {
+        return VALID_JOB_KINDS.contains(jobKind);
     }
 }
