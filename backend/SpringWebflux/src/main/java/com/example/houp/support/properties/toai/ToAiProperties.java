@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record ToAiProperties(
         String baseUrl,
         Disease disease,
-        String reportName,
-        String reportUrl
+        Report report
 ) {
 }
